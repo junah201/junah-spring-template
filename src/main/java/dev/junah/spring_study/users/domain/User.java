@@ -10,15 +10,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends BaseEntity {
-    @Column(length = 255, nullable=false)
+    @Column(length = 127, nullable = false)
+    private String username;
+
+    @Column(length = 255, nullable = false)
     private String email;
 
-    @Column(length = 127, nullable=false)
+    @Column(length = 127, nullable = false)
     private String password;
 }

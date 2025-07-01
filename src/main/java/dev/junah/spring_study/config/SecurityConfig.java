@@ -36,8 +36,8 @@ public class SecurityConfig {
         // http request 인증 설정
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/auth/login", "/auth/signup", "/token-refresh", "/favicon.ico", "/error").permitAll()
-                .anyRequest().authenticated()
-        );
+                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .anyRequest().authenticated());
 
         // form login disable
         http.formLogin(AbstractHttpConfigurer::disable);
@@ -50,8 +50,7 @@ public class SecurityConfig {
 
         // session management
         http.sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        );
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         // JWT filter 적용
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -59,8 +58,7 @@ public class SecurityConfig {
         // exception handler
         http.exceptionHandling(conf -> conf
                 .authenticationEntryPoint(customAuthenticationEntryPointHandler)
-                .accessDeniedHandler(customAccessDeniedHandler)
-        );
+                .accessDeniedHandler(customAccessDeniedHandler));
 
         return http.build();
     }

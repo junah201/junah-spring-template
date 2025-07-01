@@ -37,14 +37,14 @@ public class JwtProvider {
     /**
      * token 사용자 속성 정보 조회
      *
-     * @param token JWT
+     * @param token          JWT
      * @param claimsResolver Get Function With Target Claim
-     * @param <T> Target Claim
+     * @param <T>            Target Claim
      * @return 사용자 속성 정보
      */
     public <T> T getClaimFromToken(final String token, final Function<Claims, T> claimsResolver) {
         // token 유효성 검증
-        if(Boolean.FALSE.equals(validateToken(token)))
+        if (Boolean.FALSE.equals(validateToken(token)))
             return null;
 
         final Claims claims = getAllClaimsFromToken(token);
@@ -86,7 +86,7 @@ public class JwtProvider {
     /**
      * JWT access token 생성
      *
-     * @param id token 생성 id
+     * @param id     token 생성 id
      * @param claims token 생성 claims
      * @return access token
      */
@@ -152,5 +152,4 @@ public class JwtProvider {
 
         return false;
     }
-
 }

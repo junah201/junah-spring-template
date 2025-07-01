@@ -3,10 +3,18 @@ package dev.junah.spring_study.auth.service;
 import dev.junah.spring_study.auth.dto.LoginReqDto;
 import dev.junah.spring_study.auth.dto.LoginResDto;
 import dev.junah.spring_study.auth.dto.SignupReqDto;
+import dev.junah.spring_study.auth.exception.EmailAlreadyExistsException;
+import dev.junah.spring_study.auth.exception.EmailNotFoundException;
+import dev.junah.spring_study.auth.exception.InvalidPasswordException;
+import dev.junah.spring_study.commom.dto.Response;
 import dev.junah.spring_study.security.JwtProvider;
 import dev.junah.spring_study.users.domain.User;
 import dev.junah.spring_study.users.service.UserService;
 import lombok.RequiredArgsConstructor;
+
+import java.security.InvalidParameterException;
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,10 +31,10 @@ public class AuthService {
 
     public LoginResDto login(LoginReqDto loginReqDto) {
         User user = userService.findUserByEmail(loginReqDto.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(EmailNotFoundException::new);
 
-        if(!bCryptPasswordEncoder.matches(loginReqDto.getPassword(), user.getPassword())){
-            throw new RuntimeException("Wrong password");
+        if (!bCryptPasswordEncoder.matches(loginReqDto.getPassword(), user.getPassword())) {
+            throw new InvalidPasswordException();
         }
 
         String accessToken = jwtProvider.generateAccessToken(user.getId());
@@ -39,15 +47,13 @@ public class AuthService {
     }
 
     public void signup(SignupReqDto signupReqDto) {
-        if(userService.findUserByEmail(signupReqDto.getEmail()).isPresent()){
-            throw new RuntimeException("이미 존재하는 이메일입니다.");
-        }
+        userService.findUserByEmail(signupReqDto.getEmail())
+                .ifPresent(user -> {
+                    throw new EmailAlreadyExistsException();
+                });
 
         signupReqDto.setPassword(bCryptPasswordEncoder.encode(signupReqDto.getPassword()));
-
         User user = modelMapper.map(signupReqDto, User.class);
-
         userService.save(user);
     }
-
 }
