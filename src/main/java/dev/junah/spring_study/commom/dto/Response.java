@@ -27,4 +27,21 @@ public class Response<T> {
     @Schema(description = "결과 데이터")
     @Builder.Default
     private T rsData = null;
+
+    public static <T> Response<T> ok(String rqMethod, T data) {
+        return Response.<T>builder()
+                .rqMethod(rqMethod)
+                .rsCode(0)
+                .rsMsg("성공")
+                .rsData(data)
+                .build();
+    }
+
+    public static <T> Response<T> error(String rqMethod, Integer errorCode, String errorMessage) {
+        return Response.<T>builder()
+                .rqMethod(rqMethod)
+                .rsCode(errorCode)
+                .rsMsg(errorMessage)
+                .build();
+    }
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @Schema(description = "사용자 응답 DTO")
-public class UserDto {
+public class UserResDto {
     @Schema(description = "사용자 ID", example = "1")
     private String id;
 
@@ -18,4 +18,7 @@ public class UserDto {
 
     @Schema(description = "사용자 이메일", example = "user@example.com")
     private String email;
+
+    @Schema(description = "사용자 권한", example = "0")
+    private int permission;
 }
