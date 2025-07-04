@@ -79,8 +79,8 @@ public class JwtProvider {
     /**
      * access token 생성
      */
-    public String generateAccessToken(final Long userId) {
-        return doGenerateAccessToken(Long.toString(userId), new HashMap<>());
+    public String generateAccessToken(final String userId) {
+        return doGenerateAccessToken(userId, new HashMap<>());
     }
 
     /**
@@ -106,8 +106,8 @@ public class JwtProvider {
      * @param id token 생성 id
      * @return refresh token
      */
-    public String generateRefreshToken(final long id) {
-        return doGenerateRefreshToken(String.valueOf(id));
+    public String generateRefreshToken(final String id) {
+        return doGenerateRefreshToken(id);
     }
 
     /**
