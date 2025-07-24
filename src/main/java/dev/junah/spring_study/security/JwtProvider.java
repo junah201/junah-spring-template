@@ -84,6 +84,17 @@ public class JwtProvider {
     }
 
     /**
+     * access token 생성
+     *
+     * @param userId token 생성 id
+     * @param claims token 생성 claims
+     * @return access token
+     */
+    public String generateAccessToken(final String userId, final Map<String, Object> claims) {
+        return doGenerateAccessToken(userId, claims);
+    }
+
+    /**
      * JWT access token 생성
      *
      * @param id     token 생성 id

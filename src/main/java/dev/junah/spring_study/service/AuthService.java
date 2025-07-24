@@ -11,6 +11,9 @@ import dev.junah.spring_study.mapper.UserMapper;
 import dev.junah.spring_study.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +35,7 @@ public class AuthService {
             throw new InvalidPasswordException();
         }
 
-        String accessToken = jwtProvider.generateAccessToken(user.getId());
+        String accessToken = jwtProvider.generateAccessToken(user.getId(), Map.of("permission", user.getPermission()));
         String refreshToken = jwtProvider.generateRefreshToken(user.getId());
 
         return LoginResDto.builder()
