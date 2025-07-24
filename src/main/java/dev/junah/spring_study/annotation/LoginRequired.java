@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @SecurityRequirement(name = "jwtAuth")
 @ApiResponses({
         @ApiResponse(responseCode = "200", description = "성공"),
-        @ApiResponse(responseCode = "401", description = "로그인이 필요합니다.", content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "UnauthorizedExample", value = """
+        @ApiResponse(responseCode = "401", description = "로그인이 필요합니다.", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = """
                 {
                   "code": 10401,
                   "message": "로그인이 필요합니다.",
