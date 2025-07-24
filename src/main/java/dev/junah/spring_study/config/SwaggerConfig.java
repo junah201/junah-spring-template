@@ -14,9 +14,9 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         Info info = new Info()
-                .title("Spring Study API")
+                .title("Junah Spring Template")
                 .version("v1")
-                .description("Junah의 연습용 API 문서");
+                .description("Junah's Spring Template API Documentation");
 
         String jwtSchemeName = "jwtAuth";
         SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
@@ -26,7 +26,7 @@ public class SwaggerConfig {
                         .name(jwtSchemeName)
                         .type(SecurityScheme.Type.HTTP)
                         .scheme("bearer")
-                        .bearerFormat("JWT")); // 토큰 형식을 지정하는 임의의 문자(Optional)
+                        .bearerFormat("JWT"));
 
         return new OpenAPI()
                 .info(info)
