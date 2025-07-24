@@ -25,18 +25,13 @@ public class AuthController {
     @Operation(summary = "회원가입", description = "새로운 사용자를 등록합니다.")
     public Response<Void> signup(@RequestBody @Valid SignupReqDto signupReqDto) {
         authService.signup(signupReqDto);
-        return Response.<Void>builder()
-                .rqMethod("POST /auth/signup")
-                .build();
+        return Response.<Void>ok(null);
     }
 
     @PostMapping("/login")
     @Operation(summary = "로그인", description = "사용자가 로그인하여 토큰을 발급받습니다.")
     public Response<LoginResDto> login(@RequestBody LoginReqDto loginReqDto) {
         LoginResDto loginResDto = authService.login(loginReqDto);
-        return Response.<LoginResDto>builder()
-                .rqMethod("POST /auth/login")
-                .rsData(loginResDto)
-                .build();
+        return Response.ok(loginResDto);
     }
 }

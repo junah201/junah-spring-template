@@ -16,6 +16,6 @@ public class LoginResDto {
     @Schema(description = "리프레시 토큰")
     private String refreshToken;
 
-    @Schema(description = "유저 ID")
+    @Schema(description = "유저 ID", example = "1")
     private String userId;
 }

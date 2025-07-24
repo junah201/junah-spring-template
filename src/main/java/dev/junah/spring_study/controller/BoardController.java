@@ -11,5 +11,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/board/*")
 public class BoardController {
-    
+
 }

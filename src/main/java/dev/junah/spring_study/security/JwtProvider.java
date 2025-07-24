@@ -47,6 +47,8 @@ public class JwtProvider {
         if (Boolean.FALSE.equals(validateToken(token)))
             return null;
 
+        System.out.println("jwtProvider.getClaimFromToken: token = " + token);
+
         final Claims claims = getAllClaimsFromToken(token);
 
         return claimsResolver.apply(claims);

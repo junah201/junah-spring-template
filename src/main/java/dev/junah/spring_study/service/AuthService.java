@@ -35,8 +35,10 @@ public class AuthService {
             throw new InvalidPasswordException();
         }
 
-        String accessToken = jwtProvider.generateAccessToken(user.getId(), Map.of("permission", user.getPermission()));
-        String refreshToken = jwtProvider.generateRefreshToken(user.getId());
+        String userIdStr = String.valueOf(user.getId());
+
+        String accessToken = jwtProvider.generateAccessToken(userIdStr, Map.of("permission", user.getPermission()));
+        String refreshToken = jwtProvider.generateRefreshToken(userIdStr);
 
         return LoginResDto.builder()
                 .accessToken(accessToken)

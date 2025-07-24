@@ -6,42 +6,38 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Response<T> {
-    @Schema(description = "수행 메서드 명")
-    private String rqMethod;
-
     @Schema(description = "결과 코드", example = "0")
     @Builder.Default
-    private Integer rsCode = 0;
+    private Integer code = 0;
 
     @Schema(description = "결과 메시지", example = "성공")
     @Builder.Default
-    private String rsMsg = "성공";
+    private String message = "성공";
 
     @Schema(description = "결과 데이터")
     @Builder.Default
-    private T rsData = null;
+    private T data = null;
 
-    public static <T> Response<T> ok(String rqMethod, T data) {
+    public static <T> Response<T> ok(T data) {
         return Response.<T>builder()
-                .rqMethod(rqMethod)
-                .rsCode(0)
-                .rsMsg("성공")
-                .rsData(data)
+                .code(0)
+                .message("성공")
+                .data(data)
                 .build();
     }
 
-    public static <T> Response<T> error(String rqMethod, Integer errorCode, String errorMessage) {
+    public static <T> Response<T> error(Integer errorCode, String errorMessage) {
         return Response.<T>builder()
-                .rqMethod(rqMethod)
-                .rsCode(errorCode)
-                .rsMsg(errorMessage)
+                .code(errorCode)
+                .message(errorMessage)
                 .build();
     }
 }

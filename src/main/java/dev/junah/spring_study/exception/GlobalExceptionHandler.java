@@ -10,9 +10,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BaseCustomException.class)
     public Response<?> handleBaseCustomException(BaseCustomException e) {
         return Response.builder()
-                .rqMethod("GlobalExceptionHandler.handleBaseCustomException")
-                .rsCode(e.getErrorCode())
-                .rsMsg(e.getErrorMessage())
+                .code(e.getErrorCode())
+                .message(e.getErrorMessage())
                 .build();
     }
 }

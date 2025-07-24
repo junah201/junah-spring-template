@@ -10,9 +10,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-public interface UserMapper {
-    UserResDto toDto(User user);
-
+public interface UserMapper extends BaseMapper<User, UserResDto> {
     User toEntity(UserResDto userResDto);
 
     User toEntity(SignupReqDto signupReqDto);
